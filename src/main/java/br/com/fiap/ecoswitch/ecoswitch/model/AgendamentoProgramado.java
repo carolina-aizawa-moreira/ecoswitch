@@ -35,6 +35,7 @@ public class AgendamentoProgramado {
     private Set<DiaSemana> diasSemana;
 
     @Column(name = "acao")
+    @Enumerated(EnumType.STRING)
     private Acao acao;
 
     @Column(name = "ativo")

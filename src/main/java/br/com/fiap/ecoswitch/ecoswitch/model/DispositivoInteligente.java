@@ -20,6 +20,7 @@ public class DispositivoInteligente {
     private Long id;
 
     @OneToMany
+    @JoinColumn(name = "agendamento_id")
     private List<AgendamentoProgramado> agendamentos;
 
     @Column(name = "status_rele")
