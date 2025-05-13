@@ -1,0 +1,8 @@
+CREATE TABLE tb_usuario_login
+(
+    id      INTEGER DEFAULT TB_USUARIO_LOGIN_SEQ.NEXTVAL NOT NULL,
+    usuario VARCHAR2(12) NOT NULL,
+    email   VARCHAR2 NOT NULL,
+    senha   VARCHAR2(10) NOT NULL,
+    role VARCHAR2(50) NOT NULL DEFAULT 'user'
+);
