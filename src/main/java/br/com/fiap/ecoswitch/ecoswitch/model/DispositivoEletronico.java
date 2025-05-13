@@ -5,15 +5,18 @@ import br.com.fiap.ecoswitch.ecoswitch.commons.TipoConector;
 import br.com.fiap.ecoswitch.ecoswitch.commons.TipoDispositivo;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "tb_dispositivo_eletronico")
 @Getter
+@Setter
 public class DispositivoEletronico {
     private static final String SEQ_NAME = "SEQ_DISPOSITIVO_ELETRONICO";
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME)
@@ -63,9 +66,10 @@ public class DispositivoEletronico {
     private String numeroSerie;
 
     @Column(name = "possui_conversor_dc")
-    private Boolean possuiConversorDc;
+    private Boolean possuiConversorDc = false;
 
     @Column(name = "ativo")
-    private Boolean ativo;
+    private Boolean ativo = false;
+
 
 }

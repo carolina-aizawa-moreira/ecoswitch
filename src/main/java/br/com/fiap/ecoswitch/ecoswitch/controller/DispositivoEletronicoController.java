@@ -2,15 +2,21 @@ package br.com.fiap.ecoswitch.ecoswitch.controller;
 
 import br.com.fiap.ecoswitch.ecoswitch.dto.request.DispEletronicoCreateRequestDto;
 import br.com.fiap.ecoswitch.ecoswitch.dto.response.DispEletronicoCreateResponseDto;
+import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoEletronico;
 import br.com.fiap.ecoswitch.ecoswitch.service.DispEletronicoService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/dispositivos-eletronicos")
 public class DispositivoEletronicoController {
 
+    @Autowired
     private DispEletronicoService service;
 
     @GetMapping
@@ -19,8 +25,15 @@ public class DispositivoEletronicoController {
     }
 
     @PostMapping
-    public ResponseEntity<DispEletronicoCreateResponseDto> create(@RequestBody @Valid DispEletronicoCreateRequestDto createRequest) {
+    public ResponseEntity<DispEletronicoCreateResponseDto> create(@RequestBody @Valid DispEletronicoCreateRequestDto createRequest, UriComponentsBuilder uriBuilder) {
         final DispEletronicoCreateResponseDto response = service.create(createRequest);
+        var uri = uriBuilder.path("/dispositivos-eletronicos/{id}").buildAndExpand(response.id()).toUri();
+        return ResponseEntity.created(uri).body(response);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<Page<DispEletronicoCreateResponseDto>> list(Pageable page){
+        var response = service.list(page);
         return ResponseEntity.ok().body(response);
     }
 }

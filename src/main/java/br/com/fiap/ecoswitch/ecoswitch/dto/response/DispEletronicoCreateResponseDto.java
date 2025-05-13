@@ -3,6 +3,7 @@ package br.com.fiap.ecoswitch.ecoswitch.dto.response;
 import br.com.fiap.ecoswitch.ecoswitch.commons.ClassificacaoEficienciaEnergetica;
 import br.com.fiap.ecoswitch.ecoswitch.commons.TipoConector;
 import br.com.fiap.ecoswitch.ecoswitch.commons.TipoDispositivo;
+import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoEletronico;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 
@@ -22,6 +23,24 @@ public record DispEletronicoCreateResponseDto(Long id,
                                               Number peso,
                                               ClassificacaoEficienciaEnergetica classificacaoEficienciaEnergetica,
                                               LocalDate dataFabricacao,
-                                              boolean possuiConversorDc,
-                                              boolean ativo) {
+                                              Boolean possuiConversorDc,
+                                              Boolean ativo) {
+
+    public DispEletronicoCreateResponseDto(DispositivoEletronico eletronico){
+        this(
+                eletronico.getId(),
+                eletronico.getNomeProduto(),
+                eletronico.getMarca(),
+                eletronico.getTipoDispositivo(),
+                eletronico.getTensaoEntrada(),
+                eletronico.getConsumoEnergia(),
+                eletronico.getCorrenteEntrada(),
+                eletronico.getFrequencia(),
+                eletronico.getTipoConector(),
+                eletronico.getPeso(),
+                eletronico.getClassificacaoEficienciaEnergetica(),
+                eletronico.getDataFabricacao(),
+                eletronico.getPossuiConversorDc(),
+                eletronico.getAtivo());
+    }
 }
