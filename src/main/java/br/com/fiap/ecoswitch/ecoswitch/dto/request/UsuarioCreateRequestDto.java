@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.jackson.Jacksonized;
 
 @Jacksonized
@@ -16,7 +17,7 @@ public record UsuarioCreateRequestDto(
         @NotNull @Email
         String email,
 
-        @NotNull @Size(min=8, max = 10)
+        @NotNull @Size(min=8, max = 20)
         String senha,
 
         @NotNull
