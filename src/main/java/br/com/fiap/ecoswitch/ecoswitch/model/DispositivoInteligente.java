@@ -5,12 +5,14 @@ import br.com.fiap.ecoswitch.ecoswitch.commons.ProtocoloCompatibilidade;
 import br.com.fiap.ecoswitch.ecoswitch.commons.StatusConexao;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tb_dispositivo_inteligente")
 @Getter
+@Setter
 public class DispositivoInteligente {
     private final static String SEQ_NAME = "SEQ_DISP_INTELIGENTE";
 

@@ -1,8 +1,6 @@
 package br.com.fiap.ecoswitch.ecoswitch.dto.request;
 
-import br.com.fiap.ecoswitch.ecoswitch.commons.ClassificacaoEficienciaEnergetica;
-import br.com.fiap.ecoswitch.ecoswitch.commons.TipoConector;
-import br.com.fiap.ecoswitch.ecoswitch.commons.TipoDispositivo;
+import br.com.fiap.ecoswitch.ecoswitch.commons.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -38,6 +36,31 @@ public record DispEletronicoCreateRequestDto(
         @NotNull
         Boolean possuiConversorDc,
         @NotNull
-        Boolean ativo
+        Boolean ativo,
+
+        // Campos do DispositivoInteligente
+        @NotNull(message = "Status do rele é obrigatório")
+                Boolean statusRele,
+
+        @NotNull(message = "Medição de energia é obrigatória")
+        Number medicaoEnergia,
+
+        @NotNull(message = "Limite de corrente é obrigatório")
+        Number limiteCorrente,
+
+        @NotNull(message = "Conectividade é obrigatória")
+        Conectividade conectividade,
+
+        @NotNull(message = "Status de conexão é obrigatório")
+        StatusConexao statusConexao,
+
+        @NotNull(message = "Protocolo de compatibilidade é obrigatório")
+        ProtocoloCompatibilidade protocoloCompatibilidade,
+
+        @NotNull(message = "Sensor de temperatura é obrigatório")
+        Number sensorTemperatura,
+
+        @NotNull(message = "Bloqueio manual é obrigatório")
+        Boolean bloqueioManual
 ) {
 }

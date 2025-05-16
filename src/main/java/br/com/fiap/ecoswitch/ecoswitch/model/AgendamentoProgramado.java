@@ -3,6 +3,7 @@ package br.com.fiap.ecoswitch.ecoswitch.model;
 import br.com.fiap.ecoswitch.ecoswitch.commons.Acao;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_agendamento_programado")
 @Getter
+@Setter
 public class AgendamentoProgramado {
 
     private final static String SEQ_NAME = "SEQ_AGEND_PROGRAMADO";
