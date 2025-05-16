@@ -4,7 +4,9 @@ import br.com.fiap.ecoswitch.ecoswitch.commons.Conectividade;
 import br.com.fiap.ecoswitch.ecoswitch.commons.ProtocoloCompatibilidade;
 import br.com.fiap.ecoswitch.ecoswitch.commons.StatusConexao;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -12,13 +14,14 @@ import java.util.List;
 @Entity
 @Table(name = "tb_dispositivo_inteligente")
 @Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DispositivoInteligente {
     private final static String SEQ_NAME = "SEQ_DISP_INTELIGENTE";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
+    @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
 
     @OneToMany

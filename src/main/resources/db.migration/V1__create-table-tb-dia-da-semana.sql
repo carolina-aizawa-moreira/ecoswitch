@@ -1,15 +1,15 @@
 CREATE TABLE `tb_dia_semana`
 (
-    id                  NUMBER PRIMARY KEY,
-    agend_programado_id NUMBER,
+    id                  INTEGER DEFAULT TB_DISPOSITIVO_ELETRONICO_SEQ.NEXTVAL NOT NULL,
+    agend_programado_id INTEGER,
     dia_da_semana       VARCHAR2(30),
     CONSTRAINT FK_agendamento_programado FOREIGN KEY (agend_programado_id) REFERENCES tb_agendamento_programado (id)
 );
 
 CREATE TABLE `tb_agendamento_programado`
 (
-    id                  NUMBER PRIMARY KEY,
-    disp_inteligente_id NUMBER,
+    id                  INTEGER DEFAULT TB_AGENDAMENTO_PROGRAMADO_SEQ.NEXTVAL NOT NULL,
+    disp_inteligente_id INTEGER,
     data                DATE      NOT NULL,
     hora                TIMESTAMP NOT NULL,
     acao                VARCHAR2(50) NULL,
@@ -20,8 +20,8 @@ CREATE TABLE `tb_agendamento_programado`
 
 CREATE TABLE `tb_dispositivo_inteligente`
 (
-    id                        NUMBER PRIMARY KEY,
-    agendamento_id            NUMBER,
+    id                        INTEGER DEFAULT TB_DISPOSITIVO_INTELIGENTE_SEQ.NEXTVAL NOT NULL,
+    agendamento_id            INTEGER,
     status_rele               BOOLEAN,
     medicao_energia           NUMBER NULL,
     limite_corrente           NUMBER NULL,
@@ -35,8 +35,8 @@ CREATE TABLE `tb_dispositivo_inteligente`
 
 CREATE TABLE tb_dispositivo_eletronico
 (
-    id                   NUMBER PRIMARY KEY,
-    disp_inteligente_id  NUMBER,
+    id                   INTEGER DEFAULT TB_DISPOSITIVO_ELETRONICO_SEQ.NEXTVAL NOT NULL,
+    disp_inteligente_id  INTEGER,
     nome_produto         VARCHAR2(255),
     marca                VARCHAR2(255),
     tipo_dispositivo     VARCHAR2(50),

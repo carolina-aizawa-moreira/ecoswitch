@@ -4,7 +4,10 @@ import br.com.fiap.ecoswitch.ecoswitch.commons.ClassificacaoEficienciaEnergetica
 import br.com.fiap.ecoswitch.ecoswitch.commons.TipoConector;
 import br.com.fiap.ecoswitch.ecoswitch.commons.TipoDispositivo;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -13,13 +16,14 @@ import java.time.LocalDate;
 @Table(name = "tb_dispositivo_eletronico")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DispositivoEletronico {
     private static final String SEQ_NAME = "SEQ_DISPOSITIVO_ELETRONICO";
 
-    @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
+    @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
 
     @OneToOne

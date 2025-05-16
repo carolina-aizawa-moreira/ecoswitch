@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/dispositivos-eletronicos")
 public class DispositivoEletronicoController {
 
-    @Autowired
     private DispEletronicoService service;
 
     @GetMapping
