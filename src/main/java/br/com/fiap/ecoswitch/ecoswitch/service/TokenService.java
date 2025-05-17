@@ -25,7 +25,7 @@ public class TokenService {
             final Algorithm algorithm = Algorithm.HMAC256(secret);
 
             return JWT.create()
-                    .withIssuer("contatos")
+                    .withIssuer("ecoswitch")
                     .withSubject(usuario.getEmail())
                     .withExpiresAt(geraDataExpericao())
                     .sign(algorithm);
@@ -40,7 +40,7 @@ public class TokenService {
             final Algorithm algorithm = Algorithm.HMAC256(secret);
 
             return JWT.require(algorithm)
-                    .withIssuer("contatos").build()
+                    .withIssuer("ecoswitch").build()
                     .verify(token)
                     .getSubject();
         } catch (final JWTVerificationException e) {

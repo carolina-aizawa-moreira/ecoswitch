@@ -27,29 +27,56 @@ public class TokenValidator extends OncePerRequestFilter {
     private UsuarioLoginRepository usuarioLoginRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-        final String authorizationHeader = request.getHeader("Authorization");
-        String token = "";
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        if(isNull(authorizationHeader)) {
-            token = null;
-        } else {
-            token = authorizationHeader.replace("Bearer", "").trim();
-            final String login = tokenService.validarToken(token);
-            final UserDetails usuario = usuarioLoginRepository.findByEmail(login);
+        var tokenJWT = recuperarToken(request);
 
-            final UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(
-                            usuario,
-                            null,
-                            usuario.getAuthorities()
-                    );
+        if (tokenJWT != null){
+            var subject = tokenService.validarToken(tokenJWT);
+            var usuario = usuarioLoginRepository.findByEmail(subject);
 
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
 
         filterChain.doFilter(request, response);
     }
+
+    private String recuperarToken(HttpServletRequest request) {
+        var authorizationHeader = request.getHeader("Authorization");
+
+        if (authorizationHeader != null){
+            return authorizationHeader.replace("Bearer ", "");
+        }
+
+        return  null;
+    }
+
+//    @Override
+//    protected void doFilterInternal(HttpServletRequest request,
+//                                    HttpServletResponse response,
+//                                    FilterChain filterChain) throws ServletException, IOException {
+//        final String authorizationHeader = request.getHeader("Authorization");
+//        String token = "";
+//
+//        if(isNull(authorizationHeader)) {
+//            token = null;
+//        } else {
+//            token = authorizationHeader.replace("Bearer", "").trim();
+//            final String login = tokenService.validarToken(token);
+//            final UserDetails usuario = usuarioLoginRepository.findByEmail(login);
+//
+//            final UsernamePasswordAuthenticationToken authenticationToken =
+//                    new UsernamePasswordAuthenticationToken(
+//                            usuario,
+//                            null,
+//                            usuario.getAuthorities()
+//                    );
+//
+//            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+//        }
+//
+//        filterChain.doFilter(request, response);
+//    }
 }

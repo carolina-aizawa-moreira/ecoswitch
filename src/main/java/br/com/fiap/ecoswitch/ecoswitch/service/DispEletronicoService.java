@@ -7,12 +7,15 @@ import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoEletronico;
 import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoInteligente;
 import br.com.fiap.ecoswitch.ecoswitch.repository.DispEletronicoRepository;
 import br.com.fiap.ecoswitch.ecoswitch.repository.DispInteligenteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 @Service
 public class DispEletronicoService {
@@ -67,6 +70,54 @@ public class DispEletronicoService {
             Boolean statusRele = (inteligente != null) ? inteligente.getStatusRele() : null;
             return new DispEletronicoCreateResponseDto(disp, inteligente);
         });
+    }
+
+    @Transactional
+    public DispEletronicoCreateResponseDto update(Long id, DispEletronicoCreateRequestDto request) {
+        DispositivoEletronico dispositivoExistente = dispEletronicoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Dispositivo não encontrado com o ID: " + id));
+
+        // Verifica se outro dispositivo com mesmo nome e marca já existe (excluindo o atual)
+        if (dispEletronicoRepository.existsByNomeProdutoAndMarcaAndIdNot(
+                request.nomeProduto(), request.marca(), id)) {
+            throw new IllegalArgumentException("Já existe outro dispositivo com o mesmo nome e marca");
+        }
+
+        // Atualiza o dispositivo eletrônico
+        BeanUtils.copyProperties(request, dispositivoExistente, "id");
+
+        // Atualiza o dispositivo inteligente associado
+        DispositivoInteligente dispositivoInteligente = dispositivoExistente.getDispositivoInteligente();
+        if (dispositivoInteligente != null) {
+            dispositivoInteligente.setStatusRele(request.statusRele());
+            dispositivoInteligente.setMedicaoEnergia(request.medicaoEnergia());
+            dispositivoInteligente.setLimiteCorrente(request.limiteCorrente());
+            dispositivoInteligente.setConectividade(request.conectividade());
+            dispositivoInteligente.setStatusConexao(request.statusConexao());
+            dispositivoInteligente.setProtocoloCompatibilidade(request.protocoloCompatibilidade());
+            dispositivoInteligente.setSensorTemperatura(request.sensorTemperatura());
+            dispositivoInteligente.setBloqueioManual(request.bloqueioManual());
+
+            dispInteligenteRepository.save(dispositivoInteligente);
+        }
+
+        DispositivoEletronico dispositivoAtualizado = dispEletronicoRepository.save(dispositivoExistente);
+
+        return new DispEletronicoCreateResponseDto(dispositivoAtualizado, dispositivoInteligente);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        DispositivoEletronico dispositivo = dispEletronicoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Dispositivo não encontrado com o ID: " + id));
+
+        // Primeiro deleta o dispositivo eletrônico
+        dispEletronicoRepository.delete(dispositivo);
+
+        // Depois deleta o dispositivo inteligente associado, se existir
+        if (dispositivo.getDispositivoInteligente() != null) {
+            dispInteligenteRepository.delete(dispositivo.getDispositivoInteligente());
+        }
     }
 
 

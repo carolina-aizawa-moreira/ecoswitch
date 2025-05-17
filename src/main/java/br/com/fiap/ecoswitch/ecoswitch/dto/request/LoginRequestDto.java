@@ -12,5 +12,5 @@ public record LoginRequestDto(
         String email,
 
         @NotNull
-        String password
+        String senha
 ) { }

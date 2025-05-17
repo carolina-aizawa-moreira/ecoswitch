@@ -34,7 +34,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/dispositivos-eletronicos").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/dispositivos-eletronicos")
-                                .hasRole(Role.ADMIN.name())
+                                .hasAnyRole("ADMIN", "USER")
                                 .anyRequest()
                                 .authenticated())
                 .addFilterBefore(

@@ -14,6 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_agendamento_programado")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AgendamentoProgramado {

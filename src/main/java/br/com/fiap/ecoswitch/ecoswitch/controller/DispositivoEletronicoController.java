@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/dispositivos-eletronicos")
 public class DispositivoEletronicoController {
 
+    @Autowired
     private DispEletronicoService service;
 
     @GetMapping
@@ -34,5 +35,20 @@ public class DispositivoEletronicoController {
     public ResponseEntity<Page<DispEletronicoCreateResponseDto>> list(Pageable page){
         var response = service.list(page);
         return ResponseEntity.ok().body(response);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DispEletronicoCreateResponseDto> update(
+            @PathVariable Long id,
+            @RequestBody @Valid DispEletronicoCreateRequestDto request) {
+        DispEletronicoCreateResponseDto response = service.update(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

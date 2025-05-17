@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "tb_dispositivo_inteligente")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class DispositivoInteligente {
