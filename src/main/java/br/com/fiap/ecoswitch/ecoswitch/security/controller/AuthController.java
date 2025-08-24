@@ -33,7 +33,7 @@ public class AuthController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid final LoginRequestDto request)  {
+    public ResponseEntity<TokenResponseDto> login(@RequestBody @Valid final LoginRequestDto request)  {
         final UsernamePasswordAuthenticationToken usernamePassword =
                 new UsernamePasswordAuthenticationToken(request.email(), request.senha());
 

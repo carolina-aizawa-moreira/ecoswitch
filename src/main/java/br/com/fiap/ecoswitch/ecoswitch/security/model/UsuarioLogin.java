@@ -1,7 +1,6 @@
 package br.com.fiap.ecoswitch.ecoswitch.security.model;
 
 import br.com.fiap.ecoswitch.ecoswitch.commons.Role;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,17 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
+@Document
 @Getter
 @Setter
-@Document(value = "UsuarioLogin")
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioLogin implements UserDetails {
-    private final static String SEQ_NAME = "SEQ_USUARIO_LOGIN";
 
-    @Id
-    private Long id;
+    private String id;
 
     private String usuario;
 
@@ -32,7 +28,6 @@ public class UsuarioLogin implements UserDetails {
 
     private String senha;
 
-    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override

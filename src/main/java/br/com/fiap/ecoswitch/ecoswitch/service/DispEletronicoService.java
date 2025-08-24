@@ -2,18 +2,17 @@ package br.com.fiap.ecoswitch.ecoswitch.service;
 
 import br.com.fiap.ecoswitch.ecoswitch.dto.request.DispEletronicoCreateRequestDto;
 import br.com.fiap.ecoswitch.ecoswitch.dto.response.DispEletronicoCreateResponseDto;
-import br.com.fiap.ecoswitch.ecoswitch.dto.response.DispInteligenteCreateResponseDto;
 import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoEletronico;
 import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoInteligente;
 import br.com.fiap.ecoswitch.ecoswitch.repository.DispEletronicoRepository;
 import br.com.fiap.ecoswitch.ecoswitch.repository.DispInteligenteRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 
@@ -51,17 +50,14 @@ public class DispEletronicoService {
         final DispositivoEletronico saved = dispEletronicoRepository.save(dispEletronico);
 
 
-        DispEletronicoCreateResponseDto response = new DispEletronicoCreateResponseDto(
+        return new DispEletronicoCreateResponseDto(
                 saved.getId(), saved.getNomeProduto(), saved.getMarca(), saved.getTipoDispositivo(), saved.getTensaoEntrada(),
                 saved.getConsumoEnergia(), saved.getCorrenteEntrada(), saved.getFrequencia(), saved.getTipoConector(), saved.getPeso(), saved.getClassificacaoEficienciaEnergetica(), saved.getDataFabricacao(), saved.getPossuiConversorDc(), saved.getAtivo(),
                 dispositivoInteligente.getStatusRele(), dispositivoInteligente.getMedicaoEnergia(),
                 dispositivoInteligente.getLimiteCorrente(), dispositivoInteligente.getConectividade().name(),
                 dispositivoInteligente.getStatusConexao().name(), dispositivoInteligente.getProtocoloCompatibilidade().name(),
                 dispositivoInteligente.getSensorTemperatura(), dispositivoInteligente.getBloqueioManual()
-
         );
-
-        return response;
     }
 
     public Page<DispEletronicoCreateResponseDto> list(@PageableDefault(size = 10, sort = "marca") Pageable page) {
@@ -73,7 +69,7 @@ public class DispEletronicoService {
     }
 
     @Transactional
-    public DispEletronicoCreateResponseDto update(Long id, DispEletronicoCreateRequestDto request) {
+    public DispEletronicoCreateResponseDto update(String id, DispEletronicoCreateRequestDto request) {
         DispositivoEletronico dispositivoExistente = dispEletronicoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Dispositivo não encontrado com o ID: " + id));
 
@@ -107,7 +103,7 @@ public class DispEletronicoService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(String id) {
         DispositivoEletronico dispositivo = dispEletronicoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Dispositivo não encontrado com o ID: " + id));
 

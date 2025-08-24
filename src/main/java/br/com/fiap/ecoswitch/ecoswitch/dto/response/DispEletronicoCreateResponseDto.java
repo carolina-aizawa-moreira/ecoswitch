@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Jacksonized
 @Builder
-public record DispEletronicoCreateResponseDto(Long id,
+public record DispEletronicoCreateResponseDto(String id,
                                               String nomeProduto,
                                               String marca,
                                               TipoDispositivo tipoDispositivo,

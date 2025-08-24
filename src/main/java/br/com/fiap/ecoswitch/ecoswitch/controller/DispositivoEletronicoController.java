@@ -40,14 +40,14 @@ public class DispositivoEletronicoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<DispEletronicoCreateResponseDto> update(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody @Valid DispEletronicoCreateRequestDto request) {
         DispEletronicoCreateResponseDto response = service.update(id, request);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

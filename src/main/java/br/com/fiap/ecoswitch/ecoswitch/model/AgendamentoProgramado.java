@@ -1,17 +1,19 @@
 package br.com.fiap.ecoswitch.ecoswitch.model;
 
 import br.com.fiap.ecoswitch.ecoswitch.commons.Acao;
-import jakarta.persistence.*;
+import br.com.fiap.ecoswitch.ecoswitch.commons.DiasSemana;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
 
-@Entity
+@Document
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,7 +21,7 @@ import java.util.Set;
 public class AgendamentoProgramado {
 
     @Id
-    private Long id;
+    private String id;
 
     private DispositivoInteligente dispositivoInteligente;
 
@@ -27,12 +29,12 @@ public class AgendamentoProgramado {
 
     private LocalTime hora;
 
-    private Set<DiaSemana> diasSemana;
+    private Set<DiasSemana> diasSemana;
 
-    @Enumerated(EnumType.STRING)
     private Acao acao;
 
     private Boolean ativo;
 
     private Boolean repetirAgendamento;
+
 }

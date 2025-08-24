@@ -3,16 +3,16 @@ package br.com.fiap.ecoswitch.ecoswitch.model;
 import br.com.fiap.ecoswitch.ecoswitch.commons.ClassificacaoEficienciaEnergetica;
 import br.com.fiap.ecoswitch.ecoswitch.commons.TipoConector;
 import br.com.fiap.ecoswitch.ecoswitch.commons.TipoDispositivo;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
-@Entity
+@Document
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,7 +20,7 @@ import java.time.LocalDate;
 public class DispositivoEletronico {
 
     @Id
-    private Long id;
+    private String id;
 
     private DispositivoInteligente dispositivoInteligente;
 
@@ -28,7 +28,6 @@ public class DispositivoEletronico {
 
     private String marca;
 
-    @Enumerated(EnumType.STRING)
     private TipoDispositivo tipoDispositivo;
 
     private Number tensaoEntrada;
@@ -43,8 +42,6 @@ public class DispositivoEletronico {
 
     private Number peso;
 
-    @Column(name = "clas_efic_energetica")
-    @Enumerated(EnumType.STRING)
     private ClassificacaoEficienciaEnergetica classificacaoEficienciaEnergetica;
 
     private LocalDate dataFabricacao;

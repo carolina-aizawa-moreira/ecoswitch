@@ -5,5 +5,5 @@ import lombok.extern.jackson.Jacksonized;
 
 @Jacksonized
 @Builder
-public record UsuarioCreateResponseDto(Long id, String usuario, String email) {
+public record UsuarioCreateResponseDto(String id, String usuario, String email) {
 }

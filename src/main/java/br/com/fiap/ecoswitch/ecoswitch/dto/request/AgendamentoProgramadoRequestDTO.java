@@ -1,6 +1,7 @@
 package br.com.fiap.ecoswitch.ecoswitch.dto.request;
 
 import br.com.fiap.ecoswitch.ecoswitch.commons.Acao;
+import br.com.fiap.ecoswitch.ecoswitch.commons.DiasSemana;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.util.Set;
 
 public record AgendamentoProgramadoRequestDTO(
         @NotNull(message = "O ID do dispositivo inteligente é obrigatório")
-        Long dispositivoInteligenteId,
+        String dispositivoInteligenteId,
 
         @NotNull(message = "A data do agendamento é obrigatória")
         LocalDate data,
@@ -17,7 +18,7 @@ public record AgendamentoProgramadoRequestDTO(
         @NotNull(message = "A hora do agendamento é obrigatória")
         LocalTime hora,
 
-        Set<Long> diasSemanaIds, // IDs dos dias da semana (opcional)
+        Set<DiasSemana> diasDaSemana, // IDs dos dias da semana (opcional)
 
         @NotNull(message = "A ação do agendamento é obrigatória")
         Acao acao,
