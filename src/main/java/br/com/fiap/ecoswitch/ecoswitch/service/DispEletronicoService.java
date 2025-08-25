@@ -63,7 +63,6 @@ public class DispEletronicoService {
     public Page<DispEletronicoCreateResponseDto> list(@PageableDefault(size = 10, sort = "marca") Pageable page) {
         return dispEletronicoRepository.findAll(page).map(disp -> {
             DispositivoInteligente inteligente = disp.getDispositivoInteligente();
-            Boolean statusRele = (inteligente != null) ? inteligente.getStatusRele() : null;
             return new DispEletronicoCreateResponseDto(disp, inteligente);
         });
     }

@@ -2,7 +2,6 @@ package br.com.fiap.ecoswitch.ecoswitch.controller;
 
 import br.com.fiap.ecoswitch.ecoswitch.dto.request.DispEletronicoCreateRequestDto;
 import br.com.fiap.ecoswitch.ecoswitch.dto.response.DispEletronicoCreateResponseDto;
-import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoEletronico;
 import br.com.fiap.ecoswitch.ecoswitch.service.DispEletronicoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
