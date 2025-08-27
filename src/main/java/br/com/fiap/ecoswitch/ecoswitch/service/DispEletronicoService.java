@@ -25,7 +25,10 @@ public class DispEletronicoService {
     @Autowired
     private DispInteligenteRepository dispInteligenteRepository;
 
-    public DispEletronicoCreateResponseDto create(final DispEletronicoCreateRequestDto request) {
+    @Autowired
+    private AuditoriaService auditoriaService;
+
+    public DispEletronicoCreateResponseDto create(final DispEletronicoCreateRequestDto request, final String user) {
 
         if (dispEletronicoRepository.existsByNomeProdutoAndMarca(request.nomeProduto(), request.marca())) {
             throw new IllegalArgumentException("Dispositivo já existe");
@@ -33,7 +36,6 @@ public class DispEletronicoService {
 
         DispositivoInteligente dispositivoInteligente = new DispositivoInteligente();
 
-        dispositivoInteligente.setStatusRele(request.statusRele());
         dispositivoInteligente.setMedicaoEnergia(request.medicaoEnergia());
         dispositivoInteligente.setLimiteCorrente(request.limiteCorrente());
         dispositivoInteligente.setConectividade(request.conectividade());
@@ -49,6 +51,7 @@ public class DispEletronicoService {
         BeanUtils.copyProperties(request, dispEletronico);
         final DispositivoEletronico saved = dispEletronicoRepository.save(dispEletronico);
 
+        auditoriaService.saveAudit(DispositivoEletronico.class.getSimpleName(), user, "CREATE");
 
         return new DispEletronicoCreateResponseDto(
                 saved.getId(), saved.getNomeProduto(), saved.getMarca(), saved.getTipoDispositivo(), saved.getTensaoEntrada(),

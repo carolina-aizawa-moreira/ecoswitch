@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Document
@@ -29,7 +31,7 @@ public class AgendamentoProgramado {
 
     private LocalTime hora;
 
-    private Set<DiasSemana> diasSemana;
+    private Set<DiasSemana> diasSemana = new HashSet<>();
 
     private Acao acao;
 
@@ -37,4 +39,7 @@ public class AgendamentoProgramado {
 
     private Boolean repetirAgendamento;
 
+    public void addDiasSemana(List<DiasSemana> diasSemanas) {
+        this.diasSemana.addAll(diasSemanas);
+    }
 }

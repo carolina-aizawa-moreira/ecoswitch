@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public record AgendamentoProgramadoRequestDTO(
@@ -18,7 +20,8 @@ public record AgendamentoProgramadoRequestDTO(
         @NotNull(message = "A hora do agendamento é obrigatória")
         LocalTime hora,
 
-        Set<DiasSemana> diasDaSemana, // IDs dos dias da semana (opcional)
+        @NotNull
+        List<DiasSemana> diasDaSemana,
 
         @NotNull(message = "A ação do agendamento é obrigatória")
         Acao acao,

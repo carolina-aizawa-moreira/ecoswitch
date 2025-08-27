@@ -34,7 +34,7 @@ public class AgendamentoProgramadoService {
         agendamento.setHora(dto.hora());
         agendamento.setAcao(dto.acao());
         agendamento.setAtivo(dto.ativo());
-        agendamento.setDiasSemana(dto.diasDaSemana());
+        agendamento.addDiasSemana(dto.diasDaSemana());
         agendamento.setRepetirAgendamento(dto.repetirAgendamento());
 
         AgendamentoProgramado saved = agendamentoRepository.save(agendamento);
