@@ -1,9 +1,10 @@
 package br.com.fiap.ecoswitch.ecoswitch.dto.response;
 
-import br.com.fiap.ecoswitch.ecoswitch.commons.*;
+import br.com.fiap.ecoswitch.ecoswitch.commons.ClassificacaoEficienciaEnergetica;
+import br.com.fiap.ecoswitch.ecoswitch.commons.TipoConector;
+import br.com.fiap.ecoswitch.ecoswitch.commons.TipoDispositivo;
 import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoEletronico;
 import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoInteligente;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 
 @Jacksonized
 @Builder
-public record DispEletronicoCreateResponseDto(Long id,
+public record DispEletronicoCreateResponseDto(String id,
                                               String nomeProduto,
                                               String marca,
                                               TipoDispositivo tipoDispositivo,

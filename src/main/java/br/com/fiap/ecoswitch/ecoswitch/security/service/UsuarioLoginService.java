@@ -22,6 +22,7 @@ public class UsuarioLoginService {
         final UsuarioLogin usuarioSalvo = repository.save(toModel(request));
 
         return UsuarioLoginListResponse.builder()
+                .id(usuarioSalvo.getId())
                 .usuario(usuarioSalvo.getUsuario())
                 .email(usuarioSalvo.getEmail())
                 .role(usuarioSalvo.getRole()).build();

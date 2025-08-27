@@ -7,6 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 public record UsuarioLoginListResponse(
+        String id,
         String usuario,
         String email,
         Role role

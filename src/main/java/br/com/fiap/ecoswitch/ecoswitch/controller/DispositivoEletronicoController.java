@@ -2,7 +2,6 @@ package br.com.fiap.ecoswitch.ecoswitch.controller;
 
 import br.com.fiap.ecoswitch.ecoswitch.dto.request.DispEletronicoCreateRequestDto;
 import br.com.fiap.ecoswitch.ecoswitch.dto.response.DispEletronicoCreateResponseDto;
-import br.com.fiap.ecoswitch.ecoswitch.model.DispositivoEletronico;
 import br.com.fiap.ecoswitch.ecoswitch.service.DispEletronicoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,10 @@ public class DispositivoEletronicoController {
     }
 
     @PostMapping
-    public ResponseEntity<DispEletronicoCreateResponseDto> create(@RequestBody @Valid DispEletronicoCreateRequestDto createRequest, UriComponentsBuilder uriBuilder) {
-        final DispEletronicoCreateResponseDto response = service.create(createRequest);
+    public ResponseEntity<DispEletronicoCreateResponseDto> create(@RequestBody @Valid DispEletronicoCreateRequestDto createRequest,
+                                                                  @RequestHeader String user,
+                                                                  UriComponentsBuilder uriBuilder) {
+        final DispEletronicoCreateResponseDto response = service.create(createRequest, user);
         var uri = uriBuilder.path("/dispositivos-eletronicos/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
@@ -40,14 +41,14 @@ public class DispositivoEletronicoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<DispEletronicoCreateResponseDto> update(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody @Valid DispEletronicoCreateRequestDto request) {
         DispEletronicoCreateResponseDto response = service.update(id, request);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

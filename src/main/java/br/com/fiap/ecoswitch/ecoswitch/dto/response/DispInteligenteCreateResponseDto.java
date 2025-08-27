@@ -8,7 +8,7 @@ import br.com.fiap.ecoswitch.ecoswitch.model.AgendamentoProgramado;
 import java.util.List;
 
 public record DispInteligenteCreateResponseDto(
-        Long id,
+        String id,
         List<AgendamentoProgramado> agendamentos,
         Boolean statusRele,
         Number medicaoEnergia,
