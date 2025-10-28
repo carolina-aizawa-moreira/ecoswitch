@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public enum KeyMessageError {
     DISPOSITIVO_ELETRONICO_NAO_CADASTRADO("dispositivo.eletronico.nao.cadastrado"),
-    USUARIO_JA_CADASTRADO("usuario.jacadastrado");
+    USUARIO_JA_CADASTRADO("Usuário ja cadastrado");
 
     private final String message;
 

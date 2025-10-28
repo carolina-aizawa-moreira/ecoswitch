@@ -8,6 +8,7 @@ import br.com.fiap.ecoswitch.ecoswitch.security.model.UsuarioLogin;
 import br.com.fiap.ecoswitch.ecoswitch.security.service.UsuarioLoginService;
 import br.com.fiap.ecoswitch.ecoswitch.service.TokenService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -34,14 +36,23 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid final LoginRequestDto request)  {
-        final UsernamePasswordAuthenticationToken usernamePassword =
-                new UsernamePasswordAuthenticationToken(request.email(), request.senha());
+        try {
 
-        Authentication auth = authenticationManager.authenticate(usernamePassword);
 
-        String token = tokenService.generateToken((UsuarioLogin) auth.getPrincipal());
+            final UsernamePasswordAuthenticationToken usernamePassword =
+                    new UsernamePasswordAuthenticationToken(request.email(), request.senha());
 
-        return ResponseEntity.ok(new TokenResponseDto(token));
+            Authentication auth = authenticationManager.authenticate(usernamePassword);
+
+            String token = tokenService.generateToken((UsuarioLogin) auth.getPrincipal());
+
+            return ResponseEntity.ok(new TokenResponseDto(token));
+        } catch (Exception e) {
+            log.error("message erro {}", e.getMessage());
+            log.info("{}", e.getStackTrace());
+
+            throw e;
+        }
 
     }
 

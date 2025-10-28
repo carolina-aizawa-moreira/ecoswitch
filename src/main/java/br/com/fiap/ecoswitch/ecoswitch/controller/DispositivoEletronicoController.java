@@ -25,7 +25,8 @@ public class DispositivoEletronicoController {
     }
 
     @PostMapping
-    public ResponseEntity<DispEletronicoCreateResponseDto> create(@RequestBody @Valid DispEletronicoCreateRequestDto createRequest, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<DispEletronicoCreateResponseDto> create(@RequestBody @Valid DispEletronicoCreateRequestDto createRequest,
+                                                                  UriComponentsBuilder uriBuilder) {
         final DispEletronicoCreateResponseDto response = service.create(createRequest);
         var uri = uriBuilder.path("/dispositivos-eletronicos/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);

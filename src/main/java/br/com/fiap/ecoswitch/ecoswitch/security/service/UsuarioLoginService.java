@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import static br.com.fiap.ecoswitch.ecoswitch.exception.KeyMessageError.USUARIO_JA_CADASTRADO;
 
 @Service
-public class UsuarioLoginService {
+public class UsuarioLoginService extends RuntimeException {
 
     @Autowired
     private UsuarioLoginRepository repository;
